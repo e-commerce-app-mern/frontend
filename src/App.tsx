@@ -1,35 +1,37 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import Loader from "./components/loader";
+import Loader from "./components/Loader";
+import Header from "./components/Header";
 
 //* Dynamic Imports
-const Home = lazy(() => import("./pages/home"));
-const Search = lazy(() => import("./pages/search"));
-const Cart = lazy(() => import("./pages/cart"));
+const Home = lazy(() => import("./pages/Home"));
+const Search = lazy(() => import("./pages/Search"));
+const Cart = lazy(() => import("./pages/Cart"));
 
 //* Admin Route Imports
-const Dashboard = lazy(() => import("./pages/admin/dashboard"));
-const Products = lazy(() => import("./pages/admin/products"));
-const Customers = lazy(() => import("./pages/admin/customers"));
-const Transaction = lazy(() => import("./pages/admin/transaction"));
-const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));
-const Piecharts = lazy(() => import("./pages/admin/charts/piecharts"));
-const Linecharts = lazy(() => import("./pages/admin/charts/linecharts"));
-const Coupon = lazy(() => import("./pages/admin/apps/coupon"));
-const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
-const Toss = lazy(() => import("./pages/admin/apps/toss"));
-const NewProduct = lazy(() => import("./pages/admin/management/newproduct"));
+const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
+const Products = lazy(() => import("./pages/admin/Products"));
+const Customers = lazy(() => import("./pages/admin/Customers"));
+const Transaction = lazy(() => import("./pages/admin/Transaction"));
+const Barcharts = lazy(() => import("./pages/admin/charts/Barcharts"));
+const Piecharts = lazy(() => import("./pages/admin/charts/Piecharts"));
+const Linecharts = lazy(() => import("./pages/admin/charts/Linecharts"));
+const Coupon = lazy(() => import("./pages/admin/apps/Coupon"));
+const Stopwatch = lazy(() => import("./pages/admin/apps/Stopwatch"));
+const Toss = lazy(() => import("./pages/admin/apps/Toss"));
+const NewProduct = lazy(() => import("./pages/admin/management/NewProduct"));
 const ProductManagement = lazy(
-  () => import("./pages/admin/management/productmanagement")
+  () => import("./pages/admin/management/ProductManagement")
 );
 const TransactionManagement = lazy(
-  () => import("./pages/admin/management/transactionmanagement")
+  () => import("./pages/admin/management/TransactionManagement")
 );
 
 export default function App() {
   return (
     <Router>
-      {/* Header */}
+      <Header />
+
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -42,7 +42,9 @@ const ComponentName = lazy(() => import(componentPath));
 Display a fallback until its children have finished loading.
 
 ```ts
-<Suspense fallback={<FallbackComponent />}>
-    {children}
-</Suspense>
+<Suspense fallback={<FallbackComponent />}>{children}</Suspense>
 ```
+
+## HTML [dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) tag
+
+This tag defines a dialog box or subwindow. The element makes it easy to create popup dialogs and modals on a web page.
