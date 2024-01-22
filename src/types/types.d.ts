@@ -7,3 +7,4 @@ export type User = {
   gender: string;
   role: string;
 };
+
