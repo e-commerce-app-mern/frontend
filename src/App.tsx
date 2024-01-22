@@ -2,6 +2,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Loader from "./components/Loader";
 import Header from "./components/Header";
+import { Toaster } from "react-hot-toast";
 
 //* Dynamic Imports
 const Home = lazy(() => import("./pages/Home"));
@@ -84,9 +85,9 @@ export default function App() {
               element={<TransactionManagement />}
             />
           </Route>
-          ;
         </Routes>
       </Suspense>
+      <Toaster position="bottom-center" />
     </Router>
   );
 }

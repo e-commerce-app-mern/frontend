@@ -12,13 +12,13 @@ npm run dev
 
 ### Dependencies
 
-```
-npm i firebase react-hot-toast react-icons react-router-dom react-table sass chart.js react-chartjs-2
+```cmd
+npm i firebase react-hot-toast react-icons react-router-dom react-table sass chart.js react-chartjs-2 @reduxjs/toolkit react-redux axios
 ```
 
 ### Dev dependencies
 
-```
+```cmd
 npm i --save-dev @types/react-table
 ```
 
