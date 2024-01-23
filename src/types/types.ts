@@ -8,3 +8,11 @@ export type User = {
   role: string;
 };
 
+export type Product = {
+  _id: string;
+  name: string;
+  price: number;
+  stock: number;
+  category: string;
+  photo: string;
+};
