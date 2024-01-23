@@ -1,4 +1,6 @@
+import { signOut } from "firebase/auth";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import {
   FaSearch,
   FaShoppingBag,
@@ -7,17 +9,21 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase";
 import { User } from "../types/types";
 
-type UserProps = {
-  user: User | null;
-};
-
-export default function Header({ user }: { user: UserProps }) {
+export default function Header({ user }: { user: User | null }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const logoutHandler = () => {
-    setIsOpen(false);
+  const logoutHandler = async () => {
+    try {
+      await signOut(auth);
+      toast.success("Signed Out");
+
+      setIsOpen(false);
+    } catch (error) {
+      toast.error("Sign Out Failed");
+    }
   };
 
   return (

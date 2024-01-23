@@ -9,6 +9,7 @@ import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./redux/api/userAPI";
 import { UserReducerInitialState } from "./types/reducer.types";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 //* Dynamic Imports
 const Home = lazy(() => import("./pages/Home"));
@@ -56,7 +57,7 @@ export default function App() {
     });
 
     return () => {};
-  }, []);
+  }, [dispatch]);
 
   return loading ? (
     <Loader />
@@ -70,22 +71,31 @@ export default function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/cart" element={<Cart />} />
           {/* Not Logged In Route */}
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute isAuthenticated={user ? false : true}>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
           {/* Logged In User Routes */}
-          <Route>
+          <Route
+            element={<ProtectedRoute isAuthenticated={user ? true : false} />}
+          >
             <Route path="/shipping" element={<Shipping />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/order/:id" element={<OrderDetails />} />
           </Route>
           {/* Admin Routes */}
           <Route
-          // element={
-          //   <ProtectedRoute
-          //     isAuthenticated={true}
-          //     adminRoute={true}
-          //     isAdmin={true}
-          //   />
-          // }
+            element={
+              <ProtectedRoute
+                isAuthenticated={user ? true : false}
+                adminOnly={true}
+                admin={user?.role === "admin" ? true : false}
+              />
+            }
           >
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/product" element={<Products />} />
