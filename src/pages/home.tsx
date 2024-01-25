@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { SkeletonLoader } from "../components/Loader";
 import ProductCard from "../components/ProductCard";
 import { useLatestProductsQuery } from "../redux/api/productAPI";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserReducerInitialState } from "../types/reducer.types";
+import { CartItem } from "../types/types";
+import { addToCart } from "../redux/reducer/cartReducer";
 
 export default function Home() {
   const { user } = useSelector(
@@ -15,8 +17,14 @@ export default function Home() {
     user?._id as string
   );
 
-  const addToCartHandler = () => {
-    //
+  const dispatch = useDispatch();
+
+  const addToCartHandler = (cartItem: CartItem) => {
+    if (cartItem.stock < 1) {
+      return toast.error("Out of Stock");
+    }
+
+    dispatch(addToCart(cartItem));
   };
 
   if (isError) {
