@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { SkeletonLoader } from "../../../components/Loader";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import {
@@ -21,7 +21,7 @@ const Productmanagement = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useProductDetailsQuery(params.id!);
+  const { data, isLoading, isError } = useProductDetailsQuery(params.id!);
 
   const { photo, category, name, stock, price } = data?.product || {
     _id: "",
@@ -95,6 +95,10 @@ const Productmanagement = () => {
       setCategoryUpdate(data.product.category);
     }
   }, [data]);
+
+  if (isError) {
+    return <Navigate to="/404" />;
+  }
 
   return (
     <div className="admin-container">

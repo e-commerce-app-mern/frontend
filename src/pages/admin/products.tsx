@@ -1,22 +1,23 @@
 import { ReactElement, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
-import { useAllProductsQuery } from "../../redux/api/productAPI";
-import { server } from "../../redux/reducer/store";
-import toast from "react-hot-toast";
-import { CustomError } from "../../types/api.types";
 import { SkeletonLoader } from "../../components/Loader";
+import { useAllProductsQuery } from "../../redux/api/productAPI";
+import { RootState, server } from "../../redux/reducer/store";
+import { CustomError } from "../../types/api.types";
 
-type DataType = {
+interface DataType {
   photo: ReactElement;
   name: string;
   price: number;
   stock: number;
   action: ReactElement;
-};
+}
 
 const columns: Column<DataType>[] = [
   {
@@ -42,7 +43,11 @@ const columns: Column<DataType>[] = [
 ];
 
 const Products = () => {
-  const { data, isLoading, isError, error } = useAllProductsQuery("");
+  const { user } = useSelector((state: RootState) => state.userReducer);
+
+  const { isLoading, isError, error, data } = useAllProductsQuery(
+    user?._id as string
+  );
 
   const [rows, setRows] = useState<DataType[]>([]);
 
@@ -52,17 +57,16 @@ const Products = () => {
   }
 
   useEffect(() => {
-    if (data) {
+    if (data)
       setRows(
         data.products.map((i) => ({
-          name: i.name,
           photo: <img src={`${server}/${i.photo}`} alt={i.name} />,
+          name: i.name,
           price: i.price,
           stock: i.stock,
-          action: <Link to={i._id}>Manage</Link>,
+          action: <Link to={`/admin/product/${i._id}`}>Manage</Link>,
         }))
       );
-    }
   }, [data]);
 
   const Table = TableHOC<DataType>(
