@@ -1,16 +1,16 @@
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { SkeletonLoader } from "../components/Loader";
 import ProductCard from "../components/ProductCard";
 import { useLatestProductsQuery } from "../redux/api/productAPI";
-import { useDispatch, useSelector } from "react-redux";
-import { UserReducerInitialState } from "../types/reducer.types";
-import { CartItem } from "../types/types";
 import { addToCart } from "../redux/reducer/cartReducer";
+import { RootState } from "../redux/reducer/store";
+import { CartItem } from "../types/types";
 
 export default function Home() {
   const { user } = useSelector(
-    (state: { userReducer: UserReducerInitialState }) => state.userReducer
+    (state: RootState) => state.userReducer
   );
 
   const { data, isLoading, isError } = useLatestProductsQuery(
