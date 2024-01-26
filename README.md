@@ -13,7 +13,7 @@ npm run dev
 ### Dependencies
 
 ```cmd
-npm i firebase react-hot-toast react-icons react-router-dom react-table sass chart.js react-chartjs-2 @reduxjs/toolkit react-redux axios
+npm i firebase react-hot-toast react-icons react-router-dom react-table sass chart.js react-chartjs-2 @reduxjs/toolkit react-redux axios @stripe/react-stripe-js @stripe/stripe-js
 ```
 
 ### Dev dependencies
