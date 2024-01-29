@@ -87,7 +87,9 @@ const Customers = () => {
     if (data)
       setRows(
         data.users.map((i) => ({
-          avatar: <img src={i.photo} alt={i.name} />,
+          avatar: (
+            <img src={i.photo} alt={i.name} style={{ borderRadius: "50%" }} />
+          ),
           name: i.name,
           email: i.email,
           gender: i.gender,
